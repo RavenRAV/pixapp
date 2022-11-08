@@ -7,12 +7,16 @@ import coil.load
 import com.example.pixapp.databinding.ItemLayoutBinding
 import com.example.pixapp.model.ImageModel
 
-class PhotoAdapter(val list : List<ImageModel>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(val list : ArrayList<ImageModel>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
     class PhotoViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(imageModel: ImageModel) {
             binding.photoImg.load(imageModel.largeImageURL)
         }
 
+    }
+
+    fun addImage(image: ImageModel){
+        list.add(image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
