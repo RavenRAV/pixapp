@@ -3,6 +3,7 @@ package com.example.pixapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
 import com.example.pixapp.databinding.ActivityMainBinding
 import com.example.pixapp.model.PixaModel
 import retrofit2.Call
@@ -12,7 +13,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     var adapter = PhotoAdapter(listOf())
-    
+
     var perPage = 3
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun initClickers() {
         with(binding) {
+            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    if (dy>0){
+                        requestByImage(++perPage)
+                    }
+                }
+            })
+
+
             pageBtn.setOnClickListener {
                 requestByImage(++perPage)
             }
