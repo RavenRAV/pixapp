@@ -1,0 +1,35 @@
+package com.example.pixapp
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.example.pixapp.databinding.ItemLayoutBinding
+import com.example.pixapp.model.ImageModel
+
+class PhotoAdapter(val list : List<ImageModel>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+    class PhotoViewHolder(val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(imageModel: ImageModel) {
+            binding.photoImg.load(imageModel.largeImageURL)
+        }
+
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
+        return PhotoViewHolder(
+            ItemLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
+        holder.onBind(list[position])
+    }
+
+    override fun getItemCount(): Int {
+        return list.size
+    }
+}
